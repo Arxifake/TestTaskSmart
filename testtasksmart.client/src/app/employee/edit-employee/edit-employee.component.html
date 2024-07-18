@@ -1,0 +1,37 @@
+<h2 *ngIf="!isPM(); else details">Edit Employee</h2>
+<ng-template #details>
+  <h2>Details</h2>
+</ng-template>
+<div *ngIf="dataLoaded">
+  <form (ngSubmit)="onSubmit()">
+    <label for="fullName">Full Name:</label>
+    <input [disabled]="isPM()" type="text" id="fullName" [(ngModel)]="employee.fullName" name="fullName" required>
+
+    <label for="subdivision">Subdivision:</label>
+    <select [disabled]="isPM()" id="subdivision" [(ngModel)]="employee.subdivisionId" name="subdivision" required>
+      <option *ngFor="let subdivision of subdivisions" [value]="subdivision.id" [selected]="subdivision.id === employee.subdivisionId">{{ subdivision.name }}</option>
+    </select>
+
+    <label for="position">Position:</label>
+    <select [disabled]="isPM()" id="position" [(ngModel)]="employee.positionId" name="position" required>
+      <option *ngFor="let position of positions" [value]="position.id" [selected]="position.id === employee.positionId">{{ position.name }}</option>
+    </select>
+
+    <label for="peoplePartner">HR Partner:</label>
+    <select [disabled]="isPM()" id="peoplePartner" [(ngModel)]="employee.peoplePartnerId" name="peoplePartner" required>
+      <option *ngFor="let partner of hrPartners" [value]="partner.id" [selected]="partner.id === employee.peoplePartnerId">{{ partner.fullName }}</option>
+    </select>
+
+    <label for="status">Status:</label>
+    <select [disabled]="isPM()" id="status" [(ngModel)]="employee.status" name="status" required>
+      <option [ngValue]="true">Active</option>
+      <option [ngValue]="false">Inactive</option>
+    </select>
+
+    <label for="balance">Balance:</label>
+    <input [disabled]="isPM()" type="number" id="balance" [(ngModel)]="employee.balance" name="balance" required>
+
+    <button [hidden]="isPM()" type="submit">Update Employee</button>
+  </form>
+</div>
+

@@ -1,0 +1,66 @@
+<h2>Leave Requests List</h2>
+
+<div class="search-container">
+  <input type="text" [(ngModel)]="searchString" placeholder="Search leave requests" (keyup)="loadLeaveRequests('', '', searchString, 1)" />
+  <button *ngIf="!isNotEmployee()" (click)="createLeaveRequest()">Create Leave Request</button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Request Number
+        <button *ngIf="!(page?.sortBy === 'id' && page?.sortType === 'ASC')" (click)="loadLeaveRequests('id', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'id' && page?.sortType === 'ASC'" (click)="loadLeaveRequests('id', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th  *ngIf="isNotEmployee()">
+        Employee
+        <button *ngIf="!(page?.sortBy === 'employee.fullName' && page?.sortType === 'ASC')" (click)="loadLeaveRequests('employee.fullName', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'employee.fullName' && page?.sortType === 'ASC'" (click)="loadLeaveRequests('employee.fullName', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Status
+        <button *ngIf="!(page?.sortBy === 'status' && page?.sortType === 'ASC')" (click)="loadLeaveRequests('status', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'status' && page?.sortType === 'ASC'" (click)="loadLeaveRequests('status', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Absence Reason
+        <button *ngIf="!(page?.sortBy === 'absenceReason' && page?.sortType === 'ASC')" (click)="loadLeaveRequests('absenceReason', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'absenceReason' && page?.sortType === 'ASC'" (click)="loadLeaveRequests('absenceReason', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Start Date
+        <button *ngIf="!(page?.sortBy === 'startDate' && page?.sortType === 'ASC')" (click)="loadLeaveRequests('startDate', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'startDate' && page?.sortType === 'ASC'" (click)="loadLeaveRequests('startDate', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>
+        End Date
+        <button *ngIf="!(page?.sortBy === 'endDate' && page?.sortType === 'ASC')" (click)="loadLeaveRequests('endDate', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'endDate' && page?.sortType === 'ASC'" (click)="loadLeaveRequests('endDate', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let leaveRequest of page?.items">
+      <td>{{ leaveRequest.formattedId }}</td>
+      <td  *ngIf="isNotEmployee()">{{ leaveRequest.employee?.fullName }}</td>
+      <td>{{ leaveRequest.status }}</td>
+      <td>{{ leaveRequest.absenceReason }}</td>
+      <td>{{ leaveRequest.startDate | date: 'shortDate' }}</td>
+      <td>{{ leaveRequest.endDate | date: 'shortDate' }}</td>
+      <td>
+        <button (click)="editLeaveRequest(leaveRequest.id)">{{buttonText}}</button>
+        <div *ngIf="!isNotEmployee() && leaveRequest.status === 'New'">
+          <button (click)="submitLeaveRequest(leaveRequest.id)">Submit</button>
+          <button (click)="cancelLeaveRequest(leaveRequest.id)">Cancel</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="page">
+  <button (click)="loadLeaveRequests(page?.sortBy!, page?.sortType!, searchString, page?.pageIndex! - 1)" [disabled]="!page?.hasPrevPage">Previous</button>
+  <button (click)="loadLeaveRequests(page?.sortBy!, page?.sortType!, searchString, page?.pageIndex! + 1)" [disabled]="!page?.hasNextPage">Next</button>
+</div>

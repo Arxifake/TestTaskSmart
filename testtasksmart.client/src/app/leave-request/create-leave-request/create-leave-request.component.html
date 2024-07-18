@@ -1,0 +1,22 @@
+<h2>Create Leave Request</h2>
+<form (ngSubmit)="onSubmit()">
+  <label for="absenceReason">Absence Reason:</label>
+  <select id="absenceReason" [(ngModel)]="absenceReason" name="absenceReason" required>
+    <option value="SickLeave">Sick Leave</option>
+    <option value="Vacation">Vacation</option>
+    <option value="PersonalLeave">Personal Leave</option>
+    <option value="UnpaidLeave">Unpaid Leave</option>
+    <option value="Other">Other</option>
+  </select>
+
+  <label for="startDate">Start Date:</label>
+  <input type="date" id="startDate" [(ngModel)]="startDate" name="startDate" required>
+
+  <label for="endDate">End Date:</label>
+  <input type="date" id="endDate" [(ngModel)]="endDate" name="endDate" required>
+
+  <label for="comment">Comment:</label>
+  <textarea id="comment" [(ngModel)]="comment" name="comment" required></textarea>
+
+  <button type="submit">Submit</button>
+</form>

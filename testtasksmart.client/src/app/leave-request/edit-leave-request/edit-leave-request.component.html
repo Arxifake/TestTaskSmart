@@ -1,0 +1,39 @@
+<div>
+  <h2 *ngIf="!isNotEmployee(); else details">Edit Leave Request</h2>
+  <ng-template #details>
+    <h2>Details</h2>
+  </ng-template>
+  <form (ngSubmit)="onSubmit()">
+    <div>
+      <label for="formattedId">Formatted ID</label>
+      <input type="text" id="formattedId" [(ngModel)]="leaveRequest.formattedId" name="formattedId" required disabled />
+    </div>
+    <div>
+      <label for="status">Status</label>
+      <input type="text" id="status" [(ngModel)]="leaveRequest.status" name="status" required disabled />
+    </div>
+    <div>
+      <label for="absenceReason">Absence Reason</label>
+      <select [disabled]="isNotEmployee()" id="absenceReason" [(ngModel)]="leaveRequest.absenceReason" name="absenceReason" required>
+        <option value="SickLeave">Sick Leave</option>
+        <option value="Vacation">Vacation</option>
+        <option value="PersonalLeave">Personal Leave</option>
+        <option value="UnpaidLeave">Unpaid Leave</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div>
+      <label for="startDate">Start Date</label>
+      <input [disabled]="isNotEmployee()" type="date" id="startDate" [(ngModel)]="startDate" name="startDate" required />
+    </div>
+    <div>
+      <label for="endDate">End Date</label>
+      <input [disabled]="isNotEmployee()" type="date" id="endDate" [(ngModel)]="endDate" name="endDate" required />
+    </div>
+    <div>
+      <label for="comment">Comment</label>
+      <textarea [disabled]="isNotEmployee()" id="comment" [(ngModel)]="leaveRequest.comment" name="comment"></textarea>
+    </div>
+    <button *ngIf="!isNotEmployee()" type="submit">Save</button>
+  </form>
+</div>

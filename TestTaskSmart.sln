@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTaskSmart.Server", "TestTaskSmart.Server\TestTaskSmart.Server.csproj", "{3321BE80-AA9A-45CA-BC01-7FA61D0A876F}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "testtasksmart.client", "testtasksmart.client\testtasksmart.client.esproj", "{6900BF54-A183-4AEF-B11C-3113C26E04EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3321BE80-AA9A-45CA-BC01-7FA61D0A876F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3321BE80-AA9A-45CA-BC01-7FA61D0A876F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3321BE80-AA9A-45CA-BC01-7FA61D0A876F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3321BE80-AA9A-45CA-BC01-7FA61D0A876F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6900BF54-A183-4AEF-B11C-3113C26E04EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6900BF54-A183-4AEF-B11C-3113C26E04EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6900BF54-A183-4AEF-B11C-3113C26E04EF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6900BF54-A183-4AEF-B11C-3113C26E04EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6900BF54-A183-4AEF-B11C-3113C26E04EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6900BF54-A183-4AEF-B11C-3113C26E04EF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {29CCF64C-81C4-4075-B36E-B4DF2EB03D87}
+	EndGlobalSection
+EndGlobal

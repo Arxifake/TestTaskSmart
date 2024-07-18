@@ -1,0 +1,21 @@
+<nav class="nav-menu">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li *ngIf="authService.isLoggedIn() && isNotEmployee()">
+      <a routerLink="/employees">Employees</a>
+    </li>
+    <li *ngIf="authService.isLoggedIn()">
+      <a routerLink="/leaveRequests">Leave Requests</a>
+    </li>
+    <li *ngIf="authService.isLoggedIn() && isNotEmployee()">
+      <a routerLink="/approvalRequests">Approval Requests</a>
+    </li>
+    <li *ngIf="authService.isLoggedIn()">
+      <a routerLink="/projects">Projects</a>
+    </li>
+    <li class="nav-right" *ngIf="!authService.isLoggedIn()"><a href="/login">Login</a></li>
+    <li class="nav-right" *ngIf="authService.isLoggedIn()">
+      <button (click)="logout()">Logout</button>
+    </li>
+  </ul>
+</nav>

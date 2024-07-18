@@ -1,0 +1,61 @@
+<h2>Employee List</h2>
+
+<div class="search-container">
+  <input type="text" [(ngModel)]="searchString" placeholder="Search employees" (keyup)="loadEmployees('', '', searchString, 1)" />
+  <button (click)="AddEmployee()">Add Employee</button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Name
+        <button *ngIf="!(page.sortBy === 'fullName' && page.sortType === 'ASC')" (click)="loadEmployees('fullName', 'ASC', page.searchString!, page.pageIndex!)">▲</button>
+        <button *ngIf="page.sortBy === 'fullName' && page.sortType === 'ASC'" (click)="loadEmployees('fullName', 'DESC', page.searchString!, page.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Subdivision
+        <button *ngIf="!(page.sortBy === 'subdivision.name' && page.sortType === 'ASC')" (click)="loadEmployees('subdivision.name', 'ASC', page.searchString!, page.pageIndex!)">▲</button>
+        <button *ngIf="page.sortBy === 'subdivision.name' && page.sortType === 'ASC'" (click)="loadEmployees('subdivision.name', 'DESC', page.searchString!, page.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Position
+        <button *ngIf="!(page.sortBy === 'position.name' && page.sortType === 'ASC')" (click)="loadEmployees('position.name', 'ASC', page.searchString!, page.pageIndex!)">▲</button>
+        <button *ngIf="page.sortBy === 'position.name' && page.sortType === 'ASC'" (click)="loadEmployees('position.name', 'DESC', page.searchString!, page.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Status
+        <button *ngIf="!(page.sortBy === 'status' && page.sortType === 'ASC')" (click)="loadEmployees('status', 'ASC', page.searchString!, page.pageIndex!)">▲</button>
+        <button *ngIf="page.sortBy === 'status' && page.sortType === 'ASC'" (click)="loadEmployees('status', 'DESC', page.searchString!, page.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Balance
+        <button *ngIf="!(page.sortBy === 'balance' && page.sortType === 'ASC')" (click)="loadEmployees('balance', 'ASC', page.searchString!, page.pageIndex!)">▲</button>
+        <button *ngIf="page.sortBy === 'balance' && page.sortType === 'ASC'" (click)="loadEmployees('balance', 'DESC', page.searchString!, page.pageIndex!)">▼</button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of page?.items">
+      <td>{{ employee.fullName }}</td>
+      <td>{{ employee.subdivision?.name }}</td>
+      <td>{{ employee.position?.name }}</td>
+      <td>
+        {{ employee.status ? 'Active' : 'Inactive' }}
+        <label *ngIf="isNotPM()" class="switch">
+          <input type="checkbox" [checked]="employee.status" (change)="changeStatus(employee.id)">
+          <span class="slider round"></span>
+        </label>
+      </td>
+      <td>{{ employee.balance }}</td>
+      <td>
+        <button (click)="EditEmployee(employee.id)">{{buttonText}}</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="page">
+  <button (click)="loadEmployees(page.sortBy!, page.sortType!, page.searchString!, page.pageIndex! - 1)" [disabled]="!page.hasPrevPage">Previous</button>
+  <button (click)="loadEmployees(page.sortBy!, page.sortType!, page.searchString!, page.pageIndex! + 1)" [disabled]="!page.hasNextPage">Next</button>
+</div>

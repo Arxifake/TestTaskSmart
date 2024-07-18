@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Approval Request Details</h2>
+  <div class="info-item">
+    <label>ID:</label>
+    <span>{{ approvalRequest.id }}</span>
+  </div>
+  <div class="info-item">
+    <label>Formatted ID:</label>
+    <span>{{ approvalRequest.formattedId }}</span>
+  </div>
+  <div class="info-item">
+    <label>Employee:</label>
+    <span>{{ approvalRequest.employee?.fullName }}</span>
+  </div>
+  <div class="info-item">
+    <label>Comment:</label>
+    <span>{{ approvalRequest.comment }}</span>
+  </div>
+  <div class="info-item">
+    <label>Status:</label>
+    <span>{{ approvalRequest.status }}</span>
+  </div>
+  <div class="leave-request-details">
+    <h3>Leave Request Details</h3>
+    <div class="info-item">
+      <label>Start Date:</label>
+      <span>{{ approvalRequest.leaveRequest?.startDate | date: 'shortDate' }}</span>
+    </div>
+    <div class="info-item">
+      <label>End Date:</label>
+      <span>{{ approvalRequest.leaveRequest?.endDate | date: 'shortDate' }}</span>
+    </div>
+    <div class="info-item">
+      <label>Absence Reason:</label>
+      <span>{{ approvalRequest.leaveRequest?.absenceReason }}</span>
+    </div>
+    <div class="info-item">
+      <label>Leave Request Employee:</label>
+      <span>{{ approvalRequest.leaveRequest?.employee?.fullName }}</span>
+    </div>
+    <div class="info-item">
+      <label>Comment:</label>
+      <span>{{ approvalRequest.leaveRequest?.comment }}</span>
+    </div>
+  </div>
+  <div *ngIf="approvalRequest.status==='New'" class="buttons">
+    <button *ngIf="approvalRequest.isSubmited; else danger" (click)="approveRequest(approvalRequest.id)">Approve</button>
+    <ng-template #danger>
+      <div class="alert alert-danger">
+        <h2>Insufficient Balance</h2>
+        <p>The employee does not have enough days in their balance to approve this leave request.</p>
+      </div>
+    </ng-template>
+    <button class="reject-btn" (click)="rejectRequest(approvalRequest.id)">Reject</button>
+  </div>
+</div>

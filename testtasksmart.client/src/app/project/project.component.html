@@ -1,0 +1,62 @@
+<h2>Projects List</h2>
+
+<div class="search-container">
+  <input type="text" [(ngModel)]="searchString" placeholder="Search projects" (keyup)="loadProjects('', '', searchString, 1)" />
+  <button *ngIf="isNotEmployee()" (click)="addProject()">Create Project</button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Request Number
+        <button *ngIf="!(page?.sortBy === 'id' && page?.sortType === 'ASC')" (click)="loadProjects('id', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'id' && page?.sortType === 'ASC'" (click)="loadProjects('id', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Type
+        <button *ngIf="!(page?.sortBy === 'type' && page?.sortType === 'ASC')" (click)="loadProjects('employee.fullName', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'type' && page?.sortType === 'ASC'" (click)="loadProjects('employee.fullName', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Status
+        <button *ngIf="!(page?.sortBy === 'status' && page?.sortType === 'ASC')" (click)="loadProjects('status', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'status' && page?.sortType === 'ASC'" (click)="loadProjects('status', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Start Date
+        <button *ngIf="!(page?.sortBy === 'startDate' && page?.sortType === 'ASC')" (click)="loadProjects('startDate', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'startDate' && page?.sortType === 'ASC'" (click)="loadProjects('startDate', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>
+        End Date
+        <button *ngIf="!(page?.sortBy === 'endDate' && page?.sortType === 'ASC')" (click)="loadProjects('endDate', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'endDate' && page?.sortType === 'ASC'" (click)="loadProjects('endDate', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let project of page?.items">
+      <td>{{ project.formattedId }}</td>
+      <td>{{ project.type }}</td>
+      <td>
+        {{ project.status ? 'Active' : 'Inactive'}}
+        <label *ngIf="isNotEmployee()" class="switch">
+          <input type="checkbox" [checked]="project.status" (change)="changeStatus(project.id)">
+          <span class="slider round"></span>
+        </label>
+      </td>
+      <td>{{ project.startDate | date: 'shortDate' }}</td>
+      <td>{{ project.endDate | date: 'shortDate' }}</td>
+      <td>
+        <button (click)="editProject(project.id)">{{buttonText}}</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="page">
+  <button (click)="loadProjects(page?.sortBy!, page?.sortType!, searchString, page?.pageIndex! - 1)" [disabled]="!page?.hasPrevPage">Previous</button>
+  <button (click)="loadProjects(page?.sortBy!, page?.sortType!, searchString, page?.pageIndex! + 1)" [disabled]="!page?.hasNextPage">Next</button>
+</div>

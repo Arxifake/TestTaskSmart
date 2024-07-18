@@ -1,0 +1,30 @@
+<h2>Add Employee</h2>
+<div *ngIf="dataLoaded">
+  <form (ngSubmit)="onSubmit()">
+    <label for="login">Login:</label>
+    <input type="text" id="login" [(ngModel)]="employee.login" name="login" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" [(ngModel)]="employee.password" name="password" required>
+
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" [(ngModel)]="employee.fullName" name="fullName" required>
+
+    <label for="subdivision">Subdivision:</label>
+    <select id="subdivision" [(ngModel)]="employee.subdivisionId" name="subdivision" required>
+      <option *ngFor="let subdivision of subdivisions" [value]="subdivision.id">{{ subdivision.name }}</option>
+    </select>
+
+    <label for="position">Position:</label>
+    <select id="position" [(ngModel)]="employee.positionId" name="position" required>
+      <option *ngFor="let position of positions" [value]="position.id">{{ position.name }}</option>
+    </select>
+
+    <label for="peoplePartner">HR Partner:</label>
+    <select id="peoplePartner" [(ngModel)]="employee.peoplePartnerId" name="peoplePartner" required>
+      <option  *ngFor="let partner of hrPartners" [value]="partner.id">{{ partner.fullName }}</option>
+    </select>
+
+    <button type="submit">Add Employee</button>
+  </form>
+</div>

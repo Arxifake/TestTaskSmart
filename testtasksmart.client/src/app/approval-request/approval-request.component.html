@@ -1,0 +1,55 @@
+<h2>Approval Requests List</h2>
+
+<div class="search-container">
+  <input type="text" [(ngModel)]="searchString" placeholder="Search leave requests" (keyup)="loadApprovalRequests('', '', searchString, 1)" />
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Request Number
+        <button *ngIf="!(page?.sortBy === 'id' && page?.sortType === 'ASC')" (click)="loadApprovalRequests('id', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'id' && page?.sortType === 'ASC'" (click)="loadApprovalRequests('id', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Approver
+        <button *ngIf="!(page?.sortBy === 'employee.fullName' && page?.sortType === 'ASC')" (click)="loadApprovalRequests('employee.fullName', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'employee.fullName' && page?.sortType === 'ASC'" (click)="loadApprovalRequests('employee.fullName', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Employee
+        <button *ngIf="!(page?.sortBy === 'leaveRequest.employee.fullName' && page?.sortType === 'ASC')" (click)="loadApprovalRequests('employee.fullName', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'leaveRequest.employee.fullName' && page?.sortType === 'ASC'" (click)="loadApprovalRequests('employee.fullName', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Status
+        <button *ngIf="!(page?.sortBy === 'status' && page?.sortType === 'ASC')" (click)="loadApprovalRequests('status', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'status' && page?.sortType === 'ASC'" (click)="loadApprovalRequests('status', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>
+        Absence Reason
+        <button *ngIf="!(page?.sortBy === 'absenceReason' && page?.sortType === 'ASC')" (click)="loadApprovalRequests('absenceReason', 'ASC', searchString, page?.pageIndex!)">▲</button>
+        <button *ngIf="page?.sortBy === 'absenceReason' && page?.sortType === 'ASC'" (click)="loadApprovalRequests('absenceReason', 'DESC', searchString, page?.pageIndex!)">▼</button>
+      </th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let approvalRequest of page?.items">
+      <td>{{ approvalRequest.formattedId }}</td>
+      <td>{{ approvalRequest.employee?.fullName }}</td>
+      <td>{{ approvalRequest.leaveRequest.employee?.fullName }}</td>
+      <td>{{ approvalRequest.status }}</td>
+      <td>{{ approvalRequest.leaveRequest.absenceReason }}</td>
+      <td>
+    <button (click)="viewApprovalRequest(approvalRequest.id)">Details</button>
+  </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="page">
+  <button (click)="loadApprovalRequests(page?.sortBy!, page?.sortType!, searchString, page?.pageIndex! - 1)" [disabled]="!page?.hasPrevPage">Previous</button>
+  <button (click)="loadApprovalRequests(page?.sortBy!, page?.sortType!, searchString, page?.pageIndex! + 1)" [disabled]="!page?.hasNextPage">Next</button>
+</div>
